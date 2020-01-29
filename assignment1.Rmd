@@ -1,0 +1,100 @@
+---
+title: "Statistical assignment 1"
+author: "[add your name and candidate number here]"
+date: "[add date here]"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Open data (10 points)
+
+In this assignment you will work with the individual level data from wave 8 of the Understanding Society survey. First, you need to open the data set. Please complete the code below.
+
+```{r}
+library(tidyverse)
+Data <- ...
+```
+
+Now you have got your data frame stored as Data. 
+
+## Select variables (10 points)
+
+The data for Wave 8 of the Understanding Society were collected in 2016-18. Among other things, people were asked the following question: "Should the United Kingdom remain a member of the European Union or leave the European Union?" In this assignment, we will explore how answers to this question depend on sex and age.
+
+First, you need to select the variables for the analysis. You want to keep the following variables: cross-wave individual identifier (*pidp*), support for the UK remaining or leaving the EU (*h_eumem*), sex (*h_sex_dv*), age (*h_age_dv*), and sample origin (*h_memorig*).
+
+Complete the code below to select those variables from the data frame and save the result.
+
+```{r}
+Data <- Data %>%
+        select(...)
+```
+
+## Filter observations (10 points)
+
+To make nationally representative estimates from the Understanding Society data we would need to use weight coefficients. There are many different types of weight coefficients that can be used depending on the question and the level of analysis (see the User Guide, pp. 65-71). We will not do this in this assignment. However, what we want to do is to keep data from the original Understanding Society sample only (ukhls gb 2009-10), dropping  data for Northern Ireland, the BHPS cohort members and ethnic minority boost samples. This will make data closer to be representative for Great Britain. You need to choose the observations where *h_memorig* has the value of 1.
+
+```{r}
+Data <- Data %>%
+        filter(...)
+```
+
+## Recode data (20 points)
+
+Let us tabulate the variables for EU support, sex, and age.
+
+```{r}
+table(Data$h_eumem)
+table(Data$h_sex_dv)
+table(Data$h_age_dv)
+```
+
+You will see that all these variables are numeric. You can learn what the numeric codes mean by checking the codebook here: https://www.understandingsociety.ac.uk/documentation/mainstage/dataset-documentation/datafile/indresp/wave/8 .
+
+We want to do the following:
+
+1) Recode the variable for EU support as binary (1 for Remain, 0 for Leave), coding all types of missing values (including refusals and "don't know") as NA.
+2) Recode sex into a character vector with the values "male" or "female".
+3) Recode age into a variable with the following categories: 16 to 25, 26 to 40, 41 to 55, 56 to 70, over 70.
+
+In all cases, we want to create new variables.
+
+```{r}
+Data <- Data %>%
+        mutate(EU = ...
+      
+        ) %>%
+        mutate(sex = ...) %>%
+        mutate(agegr = ...
+        )
+
+```
+
+## Summarise data (20 points)
+
+Let us **dplyr** to calculate how many people in the sample supported Remain and Leave, both as absolute numbers and percentages.
+
+```{r}
+Data %>%
+        ...
+        
+```
+
+Write a couple of sentences with the interpretation of this result. How this compares with the result of the 2016 referendum? Why?
+
+## Summarise data by sex and age (30 points)
+
+Now let us look at the support for Leave and Remain by sex and age. Use your newly created variables.
+
+
+```{r}
+Data %>%
+        ...
+        
+```
+
+
+Write a couple of sentences interpreting your results.
